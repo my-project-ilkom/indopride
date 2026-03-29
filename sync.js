@@ -19,18 +19,43 @@ async function runSync() {
   });
 
   try {
-    console.log("Mengambil data dari MySQL...");
+    console.log("Mengambil semua data pemain dari MySQL...");
+    // Mengambil semua kolom untuk kebutuhan 'users' dan 'leaderboard'
     const [rows] = await connection.execute(
-      'SELECT username, kills, money, coins FROM player_stats ORDER BY kills DESC LIMIT 10'
+      'SELECT uuid, username, kills, money, coins, last_online FROM player_stats'
     );
 
+    const usersObj = {};
+
+    rows.forEach(row => {
+      // Deteksi Platform: Bedrock ditandai dengan awalan titik (.) pada username
+      const isBedrock = row.username.startsWith('.');
+      const platformName = isBedrock ? "Bedrock" : "Java";
+
+      // Struktur data sesuai rencana Tahap 1: UUID sebagai Key
+      usersObj[row.uuid] = {
+        name: row.username,
+        platform: platformName,
+        last_seen: row.last_online
+      };
+    });
+
+    // Menyiapkan data Top 10 Leaderboard (diurutkan berdasarkan kills terbanyak)
+    const leaderboardArray = [...rows]
+      .sort((a, b) => b.kills - a.kills)
+      .slice(0, 10);
+
     console.log("Mengirim data ke Firebase...");
-    // Menyimpan data ke node 'leaderboard' di Firebase
-    await db.ref('leaderboard').set(rows);
+
+    // TAHAP 1: Update node 'users' tanpa menghapus data yang sudah ada
+    await db.ref('users').update(usersObj);
+
+    // TAHAP 1: Update node 'leaderboard' untuk tampilan utama website
+    await db.ref('leaderboard').set(leaderboardArray);
     
     console.log("Sinkronisasi Berhasil!");
   } catch (error) {
-    console.error("Waduh, ada error:", error);
+    console.error("Terjadi kesalahan saat sinkronisasi:", error);
     process.exit(1);
   } finally {
     await connection.end();
