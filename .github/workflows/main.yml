@@ -1,0 +1,28 @@
+name: Indopride Data Sync
+
+on:
+  schedule:
+    - cron: '*/5 * * * *' # Berjalan setiap 5 menit
+  workflow_dispatch: # Agar kamu bisa klik tombol "Run" manual untuk ngetes
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm install mysql2 firebase-admin
+
+      - name: Run Sync Script
+        env:
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          FIREBASE_DATABASE_URL: ${{ secrets.FIREBASE_DATABASE_URL }}
+        run: node sync.js
