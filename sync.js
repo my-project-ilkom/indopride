@@ -26,7 +26,7 @@ async function runSync() {
   try {
     console.log("Mengambil semua data pemain dari MySQL...");
     
-    // Menggunakan pool.execute (Koneksi otomatis diambil dari antrean dan dikembalikan setelah selesai)
+    // Mengambil data lengkap: UUID, Username, Kills, Money, Coins, dan Last Online
     const [rows] = await pool.execute(
       'SELECT uuid, username, kills, money, coins, last_online FROM player_stats'
     );
@@ -37,28 +37,37 @@ async function runSync() {
       const isBedrock = row.username.startsWith('.');
       const platformName = isBedrock ? "Bedrock" : "Java";
 
+      // Menyimpan data ke objek dengan UUID sebagai Key agar tidak duplikat
       usersObj[row.uuid] = {
         name: row.username,
         platform: platformName,
-        last_seen: row.last_online
+        last_seen: row.last_online,
+        stats: {
+          kills: row.kills,
+          money: row.money,
+          coins: row.coins
+        }
       };
     });
 
-    const leaderboardArray = [...rows]
-      .sort((a, b) => b.kills - a.kills)
-      .slice(0, 10);
+    // Menghapus batasan .slice(0, 10) agar seluruh data masuk ke array leaderboard
+    const fullLeaderboardArray = [...rows]
+      .sort((a, b) => b.kills - a.kills);
 
-    console.log("Mengirim data ke Firebase...");
+    console.log(`Mengirim data ${rows.length} pemain ke Firebase...`);
 
+    // Update node 'users' dengan data lengkap
     await db.ref('users').update(usersObj);
-    await db.ref('leaderboard').set(leaderboardArray);
+    
+    // Set node 'leaderboard' dengan array lengkap (bisa diurutkan ulang di website)
+    await db.ref('leaderboard').set(fullLeaderboardArray);
     
     console.log("Sinkronisasi Berhasil!");
   } catch (error) {
     console.error("Terjadi kesalahan saat sinkronisasi:", error);
     process.exit(1);
   } finally {
-    // WAJIB: Selalu tutup pintu dan bubarkan antrean sebelum robot selesai bertugas
+    // Menutup koneksi database dengan aman
     console.log("Menutup koneksi database...");
     await pool.end();
     process.exit(0);
