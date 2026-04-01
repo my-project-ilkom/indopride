@@ -1,0 +1,1163 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wiki - My IndoPride Server</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+
+    <style>
+      @font-face {
+        font-family: "MinecraftTen";
+        src: url("fonts/minecraft.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+      .font-mc {
+        font-family: "MinecraftTen", sans-serif;
+        letter-spacing: 1px;
+      }
+      .font-body {
+        font-family: "Montserrat", sans-serif;
+      }
+
+      /* Animasi Loading */
+      .loader {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #e67e22;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* === CORE LOGIC GANTI HALAMAN (FADE ANIMATION) === */
+      .content-section {
+        display: none !important;
+        opacity: 0;
+        transform: translateY(10px);
+        transition:
+          opacity 0.4s ease-out,
+          transform 0.4s ease-out;
+      }
+
+      .content-section.active {
+        display: block !important;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Active Menu State */
+      .nav-btn.active,
+      .nav-btn.active:hover {
+        background-color: #f97316 !important; /* Memaksa tetap oranye walau dihover */
+        color: white !important; /* Memaksa teks tetap putih */
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        transform: translateX(8px);
+      }
+      .nav-btn.active i {
+        color: white !important;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 text-gray-800 font-body">
+    <!-- NAV TAMPILAN DESKTOP -->
+    <nav class="bg-white sticky top-0 z-50 shadow-md py-4 relative">
+      <div class="container mx-auto px-6 flex justify-between items-center">
+        <a href="index.html" class="flex items-center gap-3">
+          <img
+            src="img/icon.png"
+            alt="IndoPride Icon"
+            class="h-10 w-auto object-contain"
+          />
+          <span class="font-mc text-xl md:text-2xl text-gray-800"
+            >MY INDOPRIDE</span
+          >
+        </a>
+
+        <div
+          class="hidden md:flex items-center gap-8 font-mc uppercase tracking-wide text-sm"
+        >
+          <a
+            href="index.html"
+            class="text-gray-600 hover:text-orange-500 transition"
+            >Home</a
+          >
+          <a href="#" class="text-green-500 transition">Wiki</a>
+          <a
+            href="leaderboard.html"
+            class="text-gray-600 hover:text-orange-500 transition"
+            >Leaderboard</a
+          >
+          <a
+            href="store.html"
+            class="text-gray-600 hover:text-orange-500 transition"
+            >Shop</a
+          >
+          <a
+            href="contact.html"
+            class="text-gray-600 hover:text-orange-500 transition"
+            >Contact</a
+          >
+        </div>
+
+        <button
+          onclick="autoJoinServer()"
+          class="font-mc hidden md:inline-flex btn-3d btn-green text-sm cursor-pointer"
+        >
+          JOIN SERVER
+        </button>
+
+        <button
+          id="mobile-menu-btn"
+          class="md:hidden text-gray-800 focus:outline-none"
+        >
+          <i class="fas fa-bars text-3xl"></i>
+        </button>
+      </div>
+      <!-- TAMPILAN MOBILE -->
+      <div
+        id="mobile-menu"
+        class="hidden absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-100 flex-col p-6 space-y-4 md:hidden font-mc"
+      >
+        <a
+          href="index.html"
+          class="block text-center text-gray-600 hover:text-orange-500 uppercase"
+          >Home</a
+        >
+        <a href="#" class="block text-center text-green-500 uppercase">Wiki</a>
+        <a
+          href="leaderboard.html"
+          class="block text-center text-gray-600 hover:text-orange-500 uppercase"
+          >Leaderboard</a
+        >
+        <a
+          href="store.html"
+          class="block text-center text-gray-600 hover:text-orange-500 uppercase"
+          >Shop</a
+        >
+        <a
+          href="contact.html"
+          class="block text-center text-gray-600 hover:text-orange-500 uppercase"
+          >Contact</a
+        >
+        <button
+          onclick="autoJoinServer()"
+          class="btn-3d btn-green w-full text-center text-sm cursor-pointer"
+        >
+          JOIN SERVER
+        </button>
+      </div>
+    </nav>
+
+    <header
+      class="bg-slate-900 text-white py-16 text-center relative overflow-hidden"
+    >
+      <div class="absolute inset-0 z-0">
+        <img
+          src="https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MCV_HOL25Drop_MoM_DotNet_Homepage_1920x1080.jpg"
+          class="w-full h-full object-cover opacity-60"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"
+        ></div>
+      </div>
+      <div class="container mx-auto px-6 relative z-10">
+        <h1
+          class="font-mc text-4xl md:text-5xl text-yellow-400 mb-4 drop-shadow-md"
+        >
+          WIKI & GUIDE
+        </h1>
+        <p class="text-gray-300 max-w-xl mx-auto font-medium drop-shadow-sm">
+          Panduan lengkap bermain, list command, dan info enchant server
+          IndoPride.
+        </p>
+      </div>
+    </header>
+
+    <div class="container mx-auto px-6 py-12 flex flex-col lg:flex-row gap-10">
+      <aside class="w-full lg:w-1/4 lg:sticky lg:top-28 h-fit">
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+          <h3 class="font-mc text-xl text-gray-800 mb-4 border-b pb-2">
+            NAVIGASI
+          </h3>
+          <nav class="space-y-2 flex flex-col font-mc text-sm">
+            <button
+              onclick="switchTab('rules', this)"
+              class="nav-btn active text-left px-4 py-3 rounded-lg hover:bg-gray-100 text-gray-600 transition flex items-center"
+            >
+              <i class="fas fa-scroll w-6 text-center mr-2 text-red-500"></i>
+              Server Rules
+            </button>
+
+            <div class="space-y-1">
+              <button
+                onclick="toggleDropdown('gamemode-dropdown')"
+                class="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 text-gray-600 transition flex items-center justify-between"
+              >
+                <span class="flex items-center"
+                  ><i
+                    class="fas fa-gamepad w-6 text-center mr-2 text-blue-500"
+                  ></i>
+                  Game Modes</span
+                >
+                <i class="fas fa-chevron-down text-xs"></i>
+              </button>
+              <div id="gamemode-dropdown" class="pl-8 space-y-1 hidden">
+                <button
+                  onclick="switchTab('survival', this)"
+                  class="nav-btn w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-gray-500 text-xs transition"
+                >
+                  • Survival Economy
+                </button>
+                <button
+                  onclick="switchTab('rpg', this)"
+                  class="nav-btn w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-gray-500 text-xs transition"
+                >
+                  • RPG Quest
+                </button>
+                <button
+                  onclick="switchTab('dungeon', this)"
+                  class="nav-btn w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-gray-500 text-xs transition"
+                >
+                  • Dungeon
+                </button>
+                <button
+                  onclick="switchTab('pvp', this)"
+                  class="nav-btn w-full text-left px-4 py-2 rounded-lg hover:bg-gray-50 text-gray-500 text-xs transition"
+                >
+                  • PvP Arena
+                </button>
+              </div>
+            </div>
+
+            <button
+              onclick="switchTab('commands', this)"
+              class="nav-btn text-left px-4 py-3 rounded-lg hover:bg-gray-100 text-gray-600 transition flex items-center"
+            >
+              <i
+                class="fas fa-keyboard w-6 text-center mr-2 text-purple-500"
+              ></i>
+              Commands List
+            </button>
+
+            <button
+              onclick="switchTab('enchants', this)"
+              class="nav-btn text-left px-4 py-3 rounded-lg hover:bg-gray-100 text-gray-600 transition flex items-center"
+            >
+              <i class="fas fa-book w-6 text-center mr-2 text-yellow-500"></i>
+              Custom Enchants
+            </button>
+          </nav>
+        </div>
+      </aside>
+
+      <main class="w-full lg:w-3/4 min-h-[500px]">
+        <div id="section-rules" class="content-section active">
+          <h2
+            class="font-mc text-3xl text-gray-800 mb-8 border-l-8 border-red-500 pl-4"
+          >
+            PERATURAN SERVER
+          </h2>
+
+          <div class="space-y-8 font-body text-gray-700">
+            <div
+              class="bg-white p-6 rounded-xl border-l-4 border-red-500 shadow-sm"
+            >
+              <h3 class="font-mc text-xl text-red-600 mb-2">
+                I. INTEGRITAS & ETIKA BERMAIN
+              </h3>
+              <p class="text-sm mb-4 leading-relaxed text-gray-600">
+                Kami membangun ekosistem ini bagi mereka yang menghargai
+                kualitas. Setiap tindakan di dalam jaringan kami mencerminkan
+                integritas penggunanya.
+              </p>
+              <ol
+                class="list-decimal pl-5 space-y-2 text-sm font-semibold text-gray-800"
+              >
+                <li>
+                  <span class="font-bold text-red-600"
+                    >Keaslian Pengalaman:</span
+                  >
+                  Penggunaan perangkat lunak pihak ketiga (X-Ray, Auto-click,
+                  atau modifikasi ilegal lainnya) sangat dilarang.
+                </li>
+                <li>
+                  <span class="font-bold text-red-600">Anomali Sistem:</span>
+                  Jika Anda menemukan celah atau bug, harap segera lapor.
+                  Memanfaatkan anomali dianggap sebagai tindakan sabotase.
+                </li>
+              </ol>
+            </div>
+
+            <div
+              class="bg-white p-6 rounded-xl border-l-4 border-blue-500 shadow-sm"
+            >
+              <h3 class="font-mc text-xl text-blue-600 mb-2">
+                II. KEDAULATAN WILAYAH & PROPERTI
+              </h3>
+              <p class="text-sm mb-4 leading-relaxed text-gray-600">
+                Keamanan karya dan aset Anda adalah prioritas utama
+                infrastruktur kami.
+              </p>
+              <ol
+                class="list-decimal pl-5 space-y-2 text-sm font-semibold text-gray-800"
+              >
+                <li>
+                  <span class="font-bold text-blue-600">Proteksi Lahan:</span>
+                  Gunakan sistem Klaim Lahan sebagai perlindungan mutlak.
+                  Perusakan pada area klaim adalah pelanggaran berat.
+                </li>
+                <li>
+                  <span class="font-bold text-blue-600"
+                    >Protokol Kedamaian:</span
+                  >
+                  Fitur Anti-Hit aktif secara otomatis. PVP hanya diizinkan di
+                  dalam Arena PVP resmi.
+                </li>
+                <li>
+                  <span class="font-bold text-blue-600"
+                    >Kehormatan Interaksi:</span
+                  >
+                  Dilarang membangun mekanisme jebakan (trapping) yang bertujuan
+                  menipu pemain lain.
+                </li>
+              </ol>
+            </div>
+
+            <div
+              class="bg-white p-6 rounded-xl border-l-4 border-yellow-500 shadow-sm"
+            >
+              <h3 class="font-mc text-xl text-yellow-600 mb-2">
+                III. STABILITAS EKONOMI & TRANSAKSI
+              </h3>
+              <p class="text-sm mb-4 leading-relaxed text-gray-600">
+                Kami menjaga nilai aset Anda dengan sirkulasi ekonomi yang
+                sehat.
+              </p>
+              <ol
+                class="list-decimal pl-5 space-y-2 text-sm font-semibold text-gray-800"
+              >
+                <li>
+                  <span class="font-bold text-yellow-600"
+                    >Larangan Transaksi Luar:</span
+                  >
+                  Jual-beli aset server menggunakan uang asli (RMT) sangat
+                  dilarang.
+                </li>
+                <li>
+                  <span class="font-bold text-yellow-600"
+                    >Risiko & Konsekuensi:</span
+                  >
+                  Transaksi RMT berakibat pada pemutusan akses permanen bagi
+                  penjual dan pembeli.
+                </li>
+              </ol>
+            </div>
+
+            <div
+              class="bg-white p-6 rounded-xl border-l-4 border-green-500 shadow-sm"
+            >
+              <h3 class="font-mc text-xl text-green-600 mb-2">
+                IV. KOMUNIKASI & PROFESIONALISME
+              </h3>
+              <ol
+                class="list-decimal pl-5 space-y-2 text-sm font-semibold text-gray-800"
+              >
+                <li>
+                  <span class="font-bold text-green-600"
+                    >Tutur Kata Beradab:</span
+                  >
+                  Gunakan bahasa yang mencerminkan kedewasaan. Tidak ada tempat
+                  untuk perilaku toxic.
+                </li>
+                <li>
+                  <span class="font-bold text-green-600"
+                    >Otoritas Manajemen:</span
+                  >
+                  Seluruh staf bekerja sesuai SOP. Keputusan Developer bersifat
+                  mutlak.
+                </li>
+              </ol>
+            </div>
+
+            <div
+              class="bg-white p-6 rounded-xl border-l-4 border-purple-600 shadow-sm bg-gray-50"
+            >
+              <h3 class="font-mc text-xl text-purple-600 mb-2">
+                V. KLASIFIKASI TINDAKAN DISIPLIN
+              </h3>
+              <ol
+                class="list-decimal pl-5 space-y-2 text-sm font-semibold text-gray-800"
+              >
+                <li>
+                  <span class="font-bold text-purple-600">TEGURAN:</span>
+                  Pencatatan pelanggaran dalam sistem pangkalan data.
+                </li>
+                <li>
+                  <span class="font-bold text-purple-600">PENANGGUHAN:</span>
+                  Pencabutan akses sementara untuk proses audit akun.
+                </li>
+                <li>
+                  <span class="font-bold text-purple-600">TERMINASI:</span>
+                  Pemutusan akses permanen dari seluruh jaringan.
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div id="section-gamemode" class="content-section">
+          <div class="relative h-64 rounded-xl overflow-hidden mb-8 shadow-lg">
+            <img id="gm-image" src="" class="w-full h-full object-cover" />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-8"
+            >
+              <div>
+                <h2 id="gm-title" class="font-mc text-4xl text-white mb-2"></h2>
+                <p id="gm-desc" class="text-gray-200 font-body max-w-2xl"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div
+              class="bg-white p-6 rounded-xl shadow-sm border border-gray-200"
+            >
+              <h3 class="font-mc text-xl text-gray-800 mb-4 text-green-600">
+                CARA MEMULAI
+              </h3>
+              <ul
+                id="gm-start"
+                class="list-disc list-inside space-y-2 text-sm text-gray-600 font-body"
+              ></ul>
+            </div>
+            <div
+              class="bg-white p-6 rounded-xl shadow-sm border border-gray-200"
+            >
+              <h3 class="font-mc text-xl text-gray-800 mb-4 text-blue-600">
+                FITUR UTAMA
+              </h3>
+              <ul
+                id="gm-features"
+                class="space-y-2 text-sm text-gray-600 font-body"
+              ></ul>
+            </div>
+          </div>
+
+          <div
+            id="economy-section"
+            class="bg-slate-800 text-white p-8 rounded-xl relative overflow-hidden hidden"
+          >
+            <div class="absolute top-0 right-0 p-4 opacity-10">
+              <i class="fas fa-coins text-9xl"></i>
+            </div>
+            <h3 class="font-mc text-2xl text-yellow-400 mb-4">
+              PANDUAN EKONOMI & PEKERJAAN
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 relative z-10">
+              <div class="bg-white/10 p-4 rounded-lg">
+                <h4 class="font-bold text-green-400 mb-1">1. PILIH JOB</h4>
+                <p class="text-xs text-gray-300">
+                  Ketik <code>/jobs join</code>. Pilihan: Miner, Woodcutter,
+                  Hunter. Kamu akan dibayar setiap melakukan aksi.
+                </p>
+              </div>
+              <div class="bg-white/10 p-4 rounded-lg">
+                <h4 class="font-bold text-green-400 mb-1">2. JUAL ITEM</h4>
+                <p class="text-xs text-gray-300">
+                  Jual hasil tambang di <code>/shop</code> atau jual item langka
+                  ke player lain di <code>/ah sell [harga]</code>.
+                </p>
+              </div>
+              <div class="bg-white/10 p-4 rounded-lg">
+                <h4 class="font-bold text-green-400 mb-1">3. GACHA & CRATE</h4>
+                <p class="text-xs text-gray-300">
+                  Tukarkan Vote Key atau beli Key di webstore untuk mendapat
+                  uang tunai instan dari Crate.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="section-commands" class="content-section">
+          <h2
+            class="font-mc text-3xl text-gray-800 mb-6 border-l-8 border-purple-500 pl-4"
+          >
+            DAFTAR PERINTAH PENTING
+          </h2>
+
+          <div
+            class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 mb-6"
+          >
+            <div class="flex flex-col md:flex-row gap-4 mb-4">
+              <div class="relative flex-grow">
+                <input
+                  type="text"
+                  id="searchCmd"
+                  placeholder="Cari command (contoh: /fly)..."
+                  class="w-full pl-10 pr-4 py-2 rounded-lg border-2 border-gray-200 focus:border-purple-500 focus:outline-none font-body"
+                />
+                <i
+                  class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                ></i>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-2" id="rankFilters">
+              <span
+                class="text-xs font-bold text-gray-500 uppercase tracking-wide mr-2 self-center"
+                >Filter Rank:</span
+              >
+              <button
+                onclick="toggleRankFilter('Member')"
+                class="filter-btn rank-member border border-gray-300 px-3 py-1 rounded-full text-xs font-bold text-gray-600 hover:bg-gray-100 transition"
+              >
+                Member
+              </button>
+              <button
+                onclick="toggleRankFilter('Knight')"
+                class="filter-btn rank-knight border border-gray-300 px-3 py-1 rounded-full text-xs font-bold text-gray-600 hover:bg-orange-50 transition"
+              >
+                Knight
+              </button>
+              <button
+                onclick="toggleRankFilter('Lord')"
+                class="filter-btn rank-lord border border-gray-300 px-3 py-1 rounded-full text-xs font-bold text-gray-600 hover:bg-green-50 transition"
+              >
+                Lord
+              </button>
+              <button
+                onclick="toggleRankFilter('Paladin')"
+                class="filter-btn rank-paladin border border-gray-300 px-3 py-1 rounded-full text-xs font-bold text-gray-600 hover:bg-blue-50 transition"
+              >
+                Paladin
+              </button>
+              <button
+                onclick="toggleRankFilter('Duke')"
+                class="filter-btn rank-duke border border-gray-300 px-3 py-1 rounded-full text-xs font-bold text-gray-600 hover:bg-red-50 transition"
+              >
+                Duke
+              </button>
+              <button
+                onclick="toggleRankFilter('King')"
+                class="filter-btn rank-king border border-gray-300 px-3 py-1 rounded-full text-xs font-bold text-gray-600 hover:bg-yellow-50 transition"
+              >
+                King
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="overflow-x-auto bg-white rounded-xl shadow-sm border border-gray-200"
+          >
+            <table class="w-full text-left text-sm font-body">
+              <thead class="bg-gray-50 font-mc text-gray-700 border-b">
+                <tr>
+                  <th class="p-4">Command</th>
+                  <th class="p-4">Deskripsi</th>
+                  <th class="p-4 text-center">Rank</th>
+                </tr>
+              </thead>
+              <tbody
+                id="commandsTableBody"
+                class="divide-y text-gray-600"
+              ></tbody>
+            </table>
+
+            <div
+              id="loading-cmds"
+              class="flex flex-col items-center justify-center py-10"
+            >
+              <div class="loader mb-4"></div>
+              <p class="text-gray-500 font-mc">Memuat Commands...</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="section-enchants" class="content-section">
+          <h2
+            class="font-mc text-3xl text-gray-800 mb-6 border-l-8 border-yellow-500 pl-4"
+          >
+            DATABASE ENCHANTMENT
+          </h2>
+
+          <div
+            class="flex flex-col md:flex-row gap-4 mb-8 justify-between items-center"
+          >
+            <div class="relative w-full md:w-2/3">
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Cari nama enchant..."
+                class="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-gray-200 focus:border-orange-500 focus:outline-none font-body transition shadow-sm"
+              />
+              <i
+                class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+              ></i>
+            </div>
+            <div class="text-sm text-gray-500 font-bold font-mc">
+              TOTAL: <span id="totalCount" class="text-orange-500">0</span>
+            </div>
+          </div>
+
+          <div
+            id="loading"
+            class="flex flex-col items-center justify-center py-20"
+          >
+            <div class="loader mb-4"></div>
+            <p class="text-gray-500 font-mc">Mengambil Data Server...</p>
+          </div>
+
+          <div id="enchantContainer" class="grid grid-cols-1 gap-4"></div>
+        </div>
+      </main>
+    </div>
+
+    <footer
+      class="bg-slate-900 text-white py-12 border-t-4 border-orange-500 mt-auto relative z-20"
+    >
+      <div class="container mx-auto px-6">
+        <div
+          class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8"
+        >
+          <div class="text-center md:text-left">
+            <h3 class="font-mc text-2xl text-yellow-400 mb-2">
+              BUTUH BANTUAN?
+            </h3>
+            <p class="text-gray-400 text-sm font-body">
+              Hubungi tim admin atau bergabung dengan komunitas kami.
+            </p>
+          </div>
+          <div class="flex gap-4">
+            <a
+              href="https://wa.me/6288247123646"
+              target="_blank"
+              class="btn-3d btn-green text-sm px-6 py-3"
+            >
+              <i class="fab fa-whatsapp mr-2"></i> ADMIN
+            </a>
+            <a
+              href="https://chat.whatsapp.com/JdjesOMBYCKKwbUrIAKrfM"
+              target="_blank"
+              class="btn-3d btn-blue text-sm px-6 py-3"
+            >
+              <i class="fab fa-whatsapp mr-2"></i> GRUP WA
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="flex flex-wrap justify-center md:justify-start gap-x-8 gap-y-2 mb-8 text-[10px] md:text-xs font-mc uppercase tracking-widest text-gray-500"
+        >
+          <a href="index.html" class="hover:text-orange-500 transition">Home</a>
+          <a href="store.html" class="hover:text-orange-500 transition">Shop</a>
+          <a href="tnc.html" class="hover:text-orange-500 transition"
+            >Terms & Conditions</a
+          >
+          <a href="tnc.html" class="hover:text-orange-500 transition"
+            >Refund Policy</a
+          >
+          <a href="tnc.html" class="hover:text-orange-500 transition"
+            >Privacy Policy</a
+          >
+        </div>
+
+        <div class="border-t border-gray-700 my-8"></div>
+
+        <div
+          class="text-center text-gray-500 text-xs font-body leading-relaxed"
+        >
+          <p class="mb-2 text-gray-400 font-bold">
+            &copy; 2026 Indopride Premium. All Rights Reserved.
+          </p>
+          <p>
+            Not an official Minecraft service. Not approved by or associated
+            with Mojang or Microsoft.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // 1. NAVBAR MOBILE
+      const btn = document.getElementById("mobile-menu-btn");
+      const menu = document.getElementById("mobile-menu");
+      btn.addEventListener("click", () => menu.classList.toggle("open"));
+
+      // 2. DROPDOWN TOGGLE
+      function toggleDropdown(id) {
+        const el = document.getElementById(id);
+        el.classList.toggle("hidden");
+      }
+
+      // 3. TAB SWITCHING LOGIC
+      const gameModeData = {
+        survival: {
+          title: "SURVIVAL ECONOMY",
+          desc: "Mode bertahan hidup klasik dengan sistem ekonomi modern.",
+          image:
+            "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MCV_HOL25Drop_MoM_DotNet_Homepage_1920x1080.jpg",
+          start: [
+            "Ketik /rtp untuk random teleport.",
+            "Buat base dan claim (Golden Shovel).",
+            "Cari uang dengan Jobs.",
+          ],
+          features: ["Player Market", "Custom Enchants", "Jobs System"],
+          hasEconomy: true,
+        },
+        rpg: {
+          title: "RPG QUEST",
+          desc: "Jalankan misi cerita epik di dunia yang luas.",
+          image:
+            "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MCV_HOL25Drop_MoM_DotNet_Homepage_1920x1080.jpg",
+          start: [
+            "Bicara dengan NPC di Spawn.",
+            "Ikuti petunjuk Quest Book.",
+            "Upgrade stat karaktermu.",
+          ],
+          features: ["Main Storyline", "Custom Boss", "Class System"],
+          hasEconomy: false,
+        },
+        dungeon: {
+          title: "DUNGEON",
+          desc: "Lawan gelombang monster.",
+          image:
+            "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MCV_HOL25Drop_MoM_DotNet_Homepage_1920x1080.jpg",
+          start: ["Bentuk Party.", "Pilih kesulitan."],
+          features: ["Party System", "Wave Defense"],
+          hasEconomy: false,
+        },
+        pvp: {
+          title: "PVP ARENA",
+          desc: "Bertarung melawan pemain lain.",
+          image:
+            "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MCV_HOL25Drop_MoM_DotNet_Homepage_1920x1080.jpg",
+          start: ["Masuk lobi PvP.", "Pilih Kit."],
+          features: ["1vs1 Duel", "Free For All"],
+          hasEconomy: false,
+        },
+      };
+
+      function switchTab(tabName, btnElement) {
+        document
+          .querySelectorAll(".content-section")
+          .forEach((el) => el.classList.remove("active"));
+        document
+          .querySelectorAll(".nav-btn")
+          .forEach((el) => el.classList.remove("active"));
+
+        if (btnElement) btnElement.classList.add("active");
+
+        if (["rules", "commands", "enchants"].includes(tabName)) {
+          document.getElementById("section-" + tabName).classList.add("active");
+          if (tabName === "enchants") setTimeout(reveal, 100);
+          if (tabName === "commands") fetchCommands();
+        } else {
+          const data = gameModeData[tabName];
+          document.getElementById("gm-title").innerText = data.title;
+          document.getElementById("gm-desc").innerText = data.desc;
+          document.getElementById("gm-image").src = data.image;
+          document.getElementById("gm-start").innerHTML = data.start
+            .map((t) => `<li>${t}</li>`)
+            .join("");
+          document.getElementById("gm-features").innerHTML = data.features
+            .map(
+              (t) =>
+                `<li><i class="fas fa-check text-green-500 mr-2"></i> ${t}</li>`,
+            )
+            .join("");
+
+          const ecoSec = document.getElementById("economy-section");
+          data.hasEconomy
+            ? ecoSec.classList.remove("hidden")
+            : ecoSec.classList.add("hidden");
+
+          document.getElementById("section-gamemode").classList.add("active");
+        }
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // 4. SCROLL REVEAL
+      function reveal() {
+        var reveals = document.querySelectorAll(".reveal");
+        var windowheight = window.innerHeight;
+        for (var i = 0; i < reveals.length; i++) {
+          var revealtop = reveals[i].getBoundingClientRect().top;
+          if (revealtop < windowheight - 150 || revealtop < windowheight) {
+            reveals[i].classList.add("active");
+          }
+        }
+      }
+      window.addEventListener("scroll", reveal);
+
+      // ==========================================
+      // 5. FETCH COMMANDS & FILTER LOGIC (UPDATED)
+      // ==========================================
+      const cmdsDbUrl =
+        "https://myindopride-default-rtdb.asia-southeast1.firebasedatabase.app/wiki_commands.json";
+      let allCmds = [];
+      let activeRankFilters = [];
+
+      async function fetchCommands() {
+        if (allCmds.length > 0) return; // Cache check
+        try {
+          const res = await fetch(cmdsDbUrl);
+          const data = await res.json();
+          allCmds = Object.values(data);
+          document.getElementById("loading-cmds").style.display = "none";
+          renderCommands();
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      function toggleRankFilter(rank) {
+        const btn = Array.from(document.querySelectorAll(".filter-btn")).find(
+          (b) => b.innerText.trim() === rank,
+        );
+
+        if (activeRankFilters.includes(rank)) {
+          activeRankFilters = activeRankFilters.filter((r) => r !== rank);
+          btn.classList.remove("active");
+        } else {
+          activeRankFilters.push(rank);
+          btn.classList.add("active");
+        }
+        renderCommands();
+      }
+
+      document
+        .getElementById("searchCmd")
+        .addEventListener("input", renderCommands);
+
+      function renderCommands() {
+        const keyword = document
+          .getElementById("searchCmd")
+          .value.toLowerCase();
+        const tbody = document.getElementById("commandsTableBody");
+        tbody.innerHTML = "";
+
+        const filtered = allCmds.filter((item) => {
+          const matchesSearch =
+            item.command.toLowerCase().includes(keyword) ||
+            item.description.toLowerCase().includes(keyword);
+
+          let matchesRank = true;
+          if (activeRankFilters.length > 0) {
+            const itemRanks = item.ranks || [];
+            // Jika filter Member aktif, cari yang rank-nya kosong
+            const isMemberCommand = itemRanks.length === 0;
+            const showMember =
+              activeRankFilters.includes("Member") && isMemberCommand;
+            // Jika filter rank lain aktif, cari yang punya rank tersebut
+            const showRanked = itemRanks.some((r) =>
+              activeRankFilters.includes(r),
+            );
+
+            matchesRank = showMember || showRanked;
+          }
+
+          return matchesSearch && matchesRank;
+        });
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="3" class="text-center p-4 text-gray-500">Tidak ada command ditemukan.</td></tr>`;
+          return;
+        }
+
+        filtered.forEach((item) => {
+          let rankBadges = "";
+          const ranks = item.ranks || [];
+
+          if (ranks.length === 0) {
+            // Rank Member (Kosong/Semua Player)
+            rankBadges = `<span class="text-xs text-gray-400 italic">Member</span>`;
+          } else {
+            // Generate Badge Warna-Warni Sesuai CSS .t-badge
+            ranks.forEach((r) => {
+              let badgeClass = "bg-gray-100 text-gray-600"; // Fallback default
+
+              // Cek rank dan pasang class CSS yang sesuai
+              if (r === "Knight") badgeClass = "t-badge knight";
+              else if (r === "Lord") badgeClass = "t-badge lord";
+              else if (r === "Paladin") badgeClass = "t-badge paladin";
+              else if (r === "Duke") badgeClass = "t-badge duke";
+              else if (r === "King") badgeClass = "t-badge king";
+              else badgeClass = "t-badge"; // Default style jika rank tidak dikenal
+
+              rankBadges += `<span class="${badgeClass}">${r}</span>`;
+            });
+          }
+
+          const row = `
+            <tr class="hover:bg-gray-50 transition border-b border-gray-100">
+                <td class="p-4 font-mono text-purple-600 font-bold text-sm">${item.command}</td>
+                <td class="p-4 text-gray-600 text-sm leading-relaxed">${item.description}</td>
+                <td class="p-4 text-center align-middle whitespace-nowrap">${rankBadges}</td>
+            </tr>
+          `;
+          tbody.insertAdjacentHTML("beforeend", row);
+        });
+      }
+
+      // 6. FETCH ENCHANTS
+      const enchantsDbUrl =
+        "https://myindopride-default-rtdb.asia-southeast1.firebasedatabase.app/wiki_enchantments.json";
+      const container = document.getElementById("enchantContainer");
+      const loading = document.getElementById("loading");
+      const searchInput = document.getElementById("searchInput");
+      const totalCount = document.getElementById("totalCount");
+      let allEnchants = [];
+
+      async function fetchEnchants() {
+        try {
+          const response = await fetch(enchantsDbUrl);
+          const data = await response.json();
+          allEnchants = Object.values(data);
+          loading.style.display = "none";
+          renderEnchants(allEnchants);
+        } catch (error) {
+          loading.innerHTML = `<p class="text-red-500 font-bold">Gagal mengambil data.</p>`;
+        }
+      }
+      // Fungsi untuk mengubah teks target menjadi sekumpulan icon gambar
+      function getTargetIcons(targetStr) {
+        if (!targetStr) return "";
+        const t = targetStr.toLowerCase();
+        let iconsHTML = "";
+
+        const iconMap = {
+          helmet:
+            "https://nightexpressdev.com/excellentenchants/enchantments/sprite/helmet.webp",
+          chestplate:
+            "https://nightexpressdev.com/excellentenchants/enchantments/sprite/chestplate.webp",
+          leggings:
+            "https://nightexpressdev.com/excellentenchants/enchantments/sprite/leggings.webp",
+          boots:
+            "https://nightexpressdev.com/excellentenchants/enchantments/sprite/boots.webp",
+          elytra:
+            "https://nightexpressdev.com/excellentenchants/enchantments/sprite/elytra.webp",
+          sword:
+            "https://nightexpressdev.com/excellentenchants/enchantments/sprite/sword.webp",
+          bow: "https://nightexpressdev.com/excellentenchants/enchantments/sprite/bow.webp",
+          crossbow:
+            "https://nightexpressdev.com/excellentenchants/enchantments/sprite/crossbow.webp",
+          trident:
+            "https://nightexpressdev.com/excellentenchants/enchantments/sprite/trident.webp",
+          mace: "https://nightexpressdev.com/excellentenchants/enchantments/sprite/mace.webp",
+          shield:
+            "https://nightexpressdev.com/excellentenchants/enchantments/sprite/shield.webp",
+          pickaxe:
+            "https://nightexpressdev.com/excellentenchants/enchantments/sprite/pickaxe.webp",
+          axe: "https://nightexpressdev.com/excellentenchants/enchantments/sprite/axe.webp",
+          shovel:
+            "https://nightexpressdev.com/excellentenchants/enchantments/sprite/shovel.webp",
+          hoe: "https://nightexpressdev.com/excellentenchants/enchantments/sprite/hoe.webp",
+          shears:
+            "https://nightexpressdev.com/excellentenchants/enchantments/sprite/shears.webp",
+          fishing:
+            "https://nightexpressdev.com/excellentenchants/enchantments/sprite/fishing-rod.webp",
+        };
+
+        // Jika target adalah "Semua Item" atau "Armor" atau "Tools", kita bisa berikan beberapa icon perwakilan
+        if (t.includes("semua item") || t.includes("breakable")) {
+          iconsHTML += `<img src="${iconMap.sword}" class="h-5 w-5 object-contain" title="Semua Item">`;
+          iconsHTML += `<img src="${iconMap.pickaxe}" class="h-5 w-5 object-contain" title="Semua Item">`;
+          iconsHTML += `<img src="${iconMap.chestplate}" class="h-5 w-5 object-contain" title="Semua Item">`;
+          return `<div class="flex gap-1 justify-end">${iconsHTML}</div>`;
+        }
+        if (t === "armor") {
+          iconsHTML += `<img src="${iconMap.helmet}" class="h-5 w-5 object-contain" title="Armor">`;
+          iconsHTML += `<img src="${iconMap.chestplate}" class="h-5 w-5 object-contain" title="Armor">`;
+          iconsHTML += `<img src="${iconMap.leggings}" class="h-5 w-5 object-contain" title="Armor">`;
+          iconsHTML += `<img src="${iconMap.boots}" class="h-5 w-5 object-contain" title="Armor">`;
+          return `<div class="flex gap-1 justify-end">${iconsHTML}</div>`;
+        }
+
+        // Looping untuk mengecek kata per kata dari string target
+        for (const [key, url] of Object.entries(iconMap)) {
+          if (t.includes(key)) {
+            iconsHTML += `<img src="${url}" class="h-5 w-5 object-contain" title="${key}">`;
+          }
+        }
+
+        // Jika tidak ada yang cocok, tampilkan teks aslinya
+        if (iconsHTML === "") {
+          return `<span class="font-semibold text-orange-500 text-right truncate w-24" title="${targetStr}">${targetStr}</span>`;
+        }
+
+        return `<div class="flex gap-1 justify-end flex-wrap">${iconsHTML}</div>`;
+      }
+
+      function renderEnchants(data) {
+        container.innerHTML = "";
+        totalCount.innerText = data.length;
+        if (data.length === 0) {
+          container.innerHTML = `<p class="text-center text-gray-500 py-10">Data tidak ditemukan.</p>`;
+          return;
+        }
+
+        data.forEach((item) => {
+          // Fallback data jika ada yang kosong
+          const name = item.name || "Unknown";
+          const descIndo = item.deskripsi_indo || "-";
+          const descEng = item.description || "-";
+          const techDetails = item.technical_details || "";
+          const conflicts = item.conflicts || "Tidak ada";
+          const maxLevel = item.max_level || 1;
+          const target = item.target || "Semua Item";
+          const weight = item.weight || 0;
+
+          let rarityColor = "border-l-gray-400";
+          let rarityBadge = "bg-gray-100 text-gray-600";
+          const r = item.rarity ? item.rarity.toLowerCase() : "";
+
+          if (r.includes("epic") || r.includes("sangat langka")) {
+            rarityColor = "border-l-purple-500";
+            rarityBadge = "bg-purple-100 text-purple-700";
+          } else if (r.includes("rare") || r.includes("langka")) {
+            rarityColor = "border-l-orange-500";
+            rarityBadge = "bg-orange-100 text-orange-700";
+          } else if (r.includes("uncommon") || r.includes("umum")) {
+            rarityColor = "border-l-green-400";
+            rarityBadge = "bg-green-100 text-green-700";
+          }
+
+          // Badge Tambahan
+          const badgeTreasure = item.is_treasure
+            ? `<span class="px-2 py-1 bg-yellow-100 text-yellow-700 rounded text-[10px] font-bold uppercase" title="Harta Karun Eksklusif"><i class="fas fa-gem mr-1"></i>Treasure</span>`
+            : "";
+          const badgeTradeable = item.is_tradeable
+            ? `<span class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-[10px] font-bold uppercase" title="Bisa dibeli dari Villager"><i class="fas fa-handshake mr-1"></i>Tradeable</span>`
+            : "";
+          const badgeDiscoverable = item.is_discoverable
+            ? `<span class="px-2 py-1 bg-green-100 text-green-700 rounded text-[10px] font-bold uppercase" title="Didapat dari Enchanting Table"><i class="fas fa-magic mr-1"></i>Table</span>`
+            : "";
+
+          const targetIconsHTML = getTargetIcons(target); // Memanggil fungsi pembuat icon
+
+          const cardHTML = `
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 border-l-[6px] ${rarityColor} hover:shadow-md transition-all duration-200 reveal">
+                <div class="flex flex-col md:flex-row gap-5">
+                    
+                    <div class="flex-grow">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="bg-gray-50 p-2 rounded-lg flex-shrink-0"><i class="fas fa-book text-xl text-gray-400"></i></div>
+                            <h3 class="font-mc text-xl text-gray-800 uppercase">${name}</h3>
+                        </div>
+
+                        <div class="flex flex-wrap items-center gap-2 mb-4">
+                            <span class="text-[10px] uppercase font-bold px-2 py-1 rounded ${rarityBadge}">${item.rarity || "Common"}</span>
+                            ${badgeTreasure} ${badgeTradeable} ${badgeDiscoverable}
+                        </div>
+                        
+                        <p class="text-gray-800 font-bold text-sm mb-3 leading-relaxed">${descIndo}</p>
+                        
+                        ${techDetails ? `<div class="bg-gray-50 p-3 rounded-lg text-xs text-gray-600 border border-gray-100"><i class="fas fa-cogs text-orange-400 mr-2"></i><b>Info Teknis:</b> ${techDetails}</div>` : ""}
+                    </div>
+
+                    <div class="flex-shrink-0 w-full md:w-56 bg-gray-50 rounded-lg p-4 border border-gray-100 flex flex-col gap-3 text-xs h-fit">
+                        <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                            <span class="text-gray-500 font-bold">Max Level:</span>
+                            <span class="font-mc text-sm text-gray-800">${maxLevel}</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                            <span class="text-gray-500 font-bold">Target:</span>
+                            ${targetIconsHTML}
+                        </div>
+                        <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                            <span class="text-gray-500 font-bold">Bobot:</span>
+                            <span class="font-semibold text-gray-700">${weight}</span>
+                        </div>
+                        <div class="flex flex-col pt-1">
+                            <span class="text-gray-500 font-bold mb-1">Konflik dengan:</span>
+                            <span class="text-red-500 font-semibold" title="${conflicts}">${conflicts}</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+          `;
+          container.insertAdjacentHTML("beforeend", cardHTML);
+        });
+        setTimeout(reveal, 100);
+      }
+
+      searchInput.addEventListener("input", (e) => {
+        const keyword = e.target.value.toLowerCase();
+        const filteredData = allEnchants.filter((item) => {
+          const nameMatch = item.name.toLowerCase().includes(keyword);
+          const descMatch =
+            item.deskripsi_indo &&
+            item.deskripsi_indo.toLowerCase().includes(keyword);
+          return nameMatch || descMatch;
+        });
+        renderEnchants(filteredData);
+      });
+
+      // Jalankan Fetch awal
+      fetchEnchants();
+
+      // SCRIPT AUTO JOIN (Logic Join Server)
+      function autoJoinServer() {
+        const serverName = "IndoPride Premium";
+        const serverIP = "play.indopride.top";
+        const serverPort = "25600";
+
+        const isMobile =
+          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            navigator.userAgent,
+          );
+
+        if (isMobile) {
+          const bedrockLink = `minecraft://?addExternalServer=${encodeURIComponent(serverName)}|${serverIP}:${serverPort}`;
+          window.location.href = bedrockLink;
+
+          Swal.fire({
+            icon: "success",
+            title: "Membuka Minecraft...",
+            text: "Tunggu sebentar, kami sedang mengarahkanmu ke dalam game!",
+            timer: 3000,
+            showConfirmButton: false,
+          });
+        } else {
+          const fullIP = `${serverIP}:${serverPort}`;
+          navigator.clipboard.writeText(fullIP).then(() => {
+            Swal.fire({
+              icon: "success",
+              title: "IP Disalin!",
+              html: `IP <b>${fullIP}</b> berhasil dicopy.<br>Silakan paste di Minecraft Java kamu!`,
+              confirmButtonText: "SIAP",
+              confirmButtonColor: "#22c55e",
+            });
+          });
+        }
+      }
+    </script>
+  </body>
+</html>

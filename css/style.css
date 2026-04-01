@@ -1,0 +1,275 @@
+/* --- STYLE KHUSUS TOMBOL 3D (SOLID STYLE) --- */
+
+.btn-3d {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 30px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800; /* Extra Bold */
+  font-size: 1rem;
+  text-transform: uppercase;
+  transition: all 0.1s;
+  cursor: pointer;
+  position: relative;
+  color: white !important;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+
+  /* TEKNIK 3D BARU: Pakai Border Bottom Tebal */
+  border-bottom-width: 6px;
+  border-top-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+
+  /* Tambahan: Outline tipis di sekeliling biar rapi */
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+/* Efek Klik (Pencet) */
+.btn-3d:active {
+  transform: translateY(4px); /* Turun ke bawah */
+  border-bottom-width: 2px; /* Border menipis seolah ditekan */
+  margin-top: 4px; /* Jaga posisi biar ga lompat */
+}
+
+/* --- VARIAN WARNA (Background + Border Bawah Gelap) --- */
+
+/* HIJAU */
+.btn-green {
+  background-color: #2ecc71; /* Warna Dasar */
+  border-color: #219150; /* Warna Gelap (3D) */
+}
+.btn-green:hover {
+  background-color: #35d679;
+}
+
+/* BIRU */
+.btn-blue {
+  background-color: #3498db;
+  border-color: #217dbb; /* Warna Gelap (3D) */
+}
+.btn-blue:hover {
+  background-color: #4aa3df;
+}
+
+/* ORANYE */
+.btn-orange {
+  background-color: #e67e22;
+  border-color: #b35e16; /* Warna Gelap (3D) */
+}
+.btn-orange:hover {
+  background-color: #ed862f;
+}
+
+/* MERAH */
+.btn-red {
+  background-color: #e74c3c;
+  border-color: #c0392b;
+}
+.btn-red:hover {
+  background-color: #ec5e4f;
+}
+
+/* === CUSTOM RANK FILTER COLORS === */
+/* Base Transition */
+.filter-btn {
+  transition: all 0.2s ease-in-out;
+}
+
+/* MEMBER: Gray */
+.filter-btn.rank-member.active {
+  background-color: #4b5563; /* Gray-600 */
+  border-color: #4b5563;
+  color: white;
+}
+
+/* KNIGHT: Orange */
+.filter-btn.rank-knight.active {
+  background-color: #f97316; /* Orange-500 */
+  border-color: #f97316;
+  color: white;
+}
+
+/* LORD: Hijau */
+.filter-btn.rank-lord.active {
+  background-color: #22c55e; /* Green-500 */
+  border-color: #22c55e;
+  color: white;
+}
+
+/* PALADIN: Biru */
+.filter-btn.rank-paladin.active {
+  background-color: #3b82f6; /* Blue-500 */
+  border-color: #3b82f6;
+  color: white;
+}
+
+/* DUKE: Merah */
+.filter-btn.rank-duke.active {
+  background-color: #ef4444; /* Red-500 */
+  border-color: #ef4444;
+  color: white;
+}
+
+/* KING: Kuning/Gold */
+.filter-btn.rank-king.active {
+  background-color: #eab308; /* Yellow-500 */
+  border-color: #eab308;
+  color: white;
+}
+
+/* === STYLE BADGE RANK DI TABEL === */
+.t-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 800; /* Extra Bold */
+  text-transform: uppercase;
+  margin-right: 4px;
+  letter-spacing: 0.5px;
+}
+
+/* WARNA RANK */
+.t-badge.knight {
+  background-color: #ffedd5;
+  color: #ea580c;
+  border: 1px solid #fed7aa;
+} /* Orange */
+.t-badge.lord {
+  background-color: #dcfce7;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+} /* Hijau */
+.t-badge.paladin {
+  background-color: #dbeafe;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+} /* Biru */
+.t-badge.duke {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+} /* Merah */
+.t-badge.king {
+  background-color: #fef9c3;
+  color: #ca8a04;
+  border: 1px solid #fde047;
+} /* Kuning */
+
+/* --- STYLE CARD GAME (TETAP SAMA) --- */
+.card-game {
+  background-color: #f9fafb;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  border-bottom-width: 4px;
+  transition: all 0.3s;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+.card-game:hover {
+  transform: translateY(-0.5rem);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+.card-yellow {
+  border-color: rgba(234, 179, 8, 0.3);
+}
+.card-yellow:hover {
+  border-color: #eab308;
+}
+.card-blue {
+  border-color: rgba(59, 130, 246, 0.3);
+}
+.card-blue:hover {
+  border-color: #3b82f6;
+}
+.card-red {
+  border-color: rgba(239, 68, 68, 0.3);
+}
+.card-red:hover {
+  border-color: #ef4444;
+}
+.card-purple {
+  border-color: rgba(168, 85, 247, 0.3);
+}
+.card-purple:hover {
+  border-color: #a855f7;
+}
+
+/* Gambar Card 1:1 (Default) */
+.card-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* --- ANIMATION UTILITIES --- */
+
+/* 1. Smooth Menu Mobile */
+#mobile-menu {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.4s ease-out,
+    opacity 0.3s ease-out;
+  display: block !important; /* Agar animasi jalan */
+}
+
+/* FIX BUG DESKTOP: Paksa sembunyi kalau layar lebar (>768px) */
+@media (min-width: 768px) {
+  #mobile-menu {
+    display: none !important;
+  }
+}
+
+/* Saat menu dibuka */
+#mobile-menu.open {
+  max-height: 500px;
+  opacity: 1;
+}
+
+/* 2. Scroll Reveal Animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- STORE CARD MOBILE LAYOUT --- */
+/* Di Mobile, kartu jadi menyamping (row), di Desktop kembali vertikal (col) */
+.store-card {
+  display: flex;
+  flex-direction: row; /* Default Mobile: Kiri-Kanan */
+  align-items: center;
+  background-color: white;
+  border-radius: 0.75rem; /* rounded-xl */
+  overflow: hidden;
+  transition: all 0.3s;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Tampilan Desktop (Layar > 768px) */
+@media (min-width: 768px) {
+  .store-card {
+    flex-direction: column; /* Balik ke Atas-Bawah */
+    align-items: stretch;
+    padding: 1rem;
+  }
+}
+
+.store-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}

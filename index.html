@@ -1,0 +1,1330 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My IndoPride - Premium Minecraft Server</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+
+    <style>
+      /* Setup Font Minecraft Ten */
+      @font-face {
+        font-family: "MinecraftTen";
+        src: url("fonts/minecraft.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      /* Utility Classes */
+      .font-mc {
+        font-family: "MinecraftTen", sans-serif;
+        letter-spacing: 1px;
+      }
+      .font-body {
+        font-family: "Montserrat", sans-serif;
+      }
+
+      /* Ganti .hero-bg yang lama dengan ini */
+      .hero-bg {
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+          url("https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MCV_HOL25Drop_MoM_DotNet_Homepage_1920x1080.jpg");
+        background-size: cover;
+        background-position: center;
+        min-height: 100vh; /* Memastikan minimal setinggi layar */
+        height: auto; /* Membiarkan konten memanjang ke bawah di HP */
+      }
+
+      /* Tambahkan CSS ini untuk efek halus pada slider */
+      .promo-card {
+        transition:
+          opacity 0.4s ease,
+          transform 0.4s ease;
+      }
+
+      /* Hide Scrollbar for Promo Slider */
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 text-gray-800 font-body">
+    <nav class="bg-white sticky top-0 z-50 shadow-md py-4 relative">
+      <div class="container mx-auto px-6 flex justify-between items-center">
+        <a href="index.html" class="flex items-center gap-3">
+          <img
+            src="img/icon.png"
+            alt="IndoPride Icon"
+            class="h-10 w-auto object-contain"
+          />
+          <span class="font-mc text-xl md:text-2xl text-gray-800"
+            >MY INDOPRIDE</span
+          >
+        </a>
+
+        <div
+          class="hidden md:flex items-center gap-8 font-mc uppercase tracking-wide text-sm"
+        >
+          <a href="#" class="block text-center text-green-500 uppercase"
+            >Home</a
+          >
+          <a
+            href="wiki.html"
+            class="block text-center text-gray-600 hover:text-orange-500 uppercase"
+            >Wiki</a
+          >
+          <a
+            href="leaderboard.html"
+            class="text-gray-600 hover:text-orange-500 transition"
+            >Leaderboard</a
+          >
+          <a
+            href="store.html"
+            class="text-gray-600 hover:text-orange-500 transition"
+            >Shop</a
+          >
+          <a
+            href="contact.html"
+            class="text-gray-600 hover:text-orange-500 transition"
+            >Contact</a
+          >
+        </div>
+
+        <button
+          onclick="autoJoinServer()"
+          class="font-mc hidden md:inline-flex btn-3d btn-green text-sm cursor-pointer"
+        >
+          JOIN SERVER
+        </button>
+
+        <button
+          id="mobile-menu-btn"
+          class="md:hidden text-gray-800 focus:outline-none"
+        >
+          <i class="fas fa-bars text-3xl"></i>
+        </button>
+      </div>
+
+      <div
+        id="mobile-menu"
+        class="hidden absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-100 flex-col p-6 space-y-4 md:hidden font-mc"
+      >
+        <a href="#" class="block text-center text-green-500 uppercase">Home</a>
+        <a
+          href="wiki.html"
+          class="block text-center text-gray-600 hover:text-orange-500 uppercase"
+          >Wiki</a
+        >
+        <a
+          href="leaderboard.html"
+          class="block text-center text-gray-600 hover:text-orange-500 uppercase"
+          >Leaderboard</a
+        >
+        <a
+          href="store.html"
+          class="block text-center text-gray-600 hover:text-orange-500 uppercase"
+          >Shop</a
+        >
+        <a
+          href="contact.html"
+          class="block text-center text-gray-600 hover:text-orange-500 uppercase"
+          >Contact</a
+        >
+        <button
+          onclick="autoJoinServer()"
+          class="btn-3d btn-green w-full text-center text-sm cursor-pointer"
+        >
+          JOIN SERVER
+        </button>
+      </div>
+    </nav>
+
+    <section
+      class="hero-bg flex items-center justify-center text-center text-white px-4 relative pt-24 pb-20"
+    >
+      <div class="absolute inset-0 bg-black/40 z-0"></div>
+
+      <div
+        class="relative z-10 max-w-6xl w-full flex flex-col items-center reveal"
+      >
+        <img
+          src="https://res.cloudinary.com/dtjbo9dba/image/upload/v1772761092/icon_b0velf.png"
+          alt="Minecraft IndoPride Premium"
+          class="w-full max-w-[250px] md:max-w-[400px] mb-4 drop-shadow-2xl animate-fade-in-up"
+        />
+
+        <div
+          class="flex flex-col md:flex-row items-center justify-center gap-3 mb-8 font-body text-base md:text-xl font-semibold drop-shadow-md"
+        >
+          <span class="text-white">Minecraft Server Premium</span>
+          <span class="hidden md:inline text-gray-400">|</span>
+
+          <div class="flex flex-wrap justify-center gap-2 mt-2 md:mt-0">
+            <span
+              class="px-3 py-1 rounded border-2 border-yellow-500 bg-yellow-500/20 text-yellow-300 text-xs md:text-sm shadow-[0_4px_0_#b45309]"
+              >Survival Economy</span
+            >
+            <span
+              class="px-3 py-1 rounded border-2 border-blue-500 bg-blue-500/20 text-blue-300 text-xs md:text-sm shadow-[0_4px_0_#1d4ed8]"
+              >RPG</span
+            >
+            <span
+              class="px-3 py-1 rounded border-2 border-red-500 bg-red-500/20 text-red-300 text-xs md:text-sm shadow-[0_4px_0_#b91c1c]"
+              >Dungeon</span
+            >
+            <span
+              class="px-3 py-1 rounded border-2 border-purple-500 bg-purple-500/20 text-purple-300 text-xs md:text-sm shadow-[0_4px_0_#7e22ce]"
+              >PvP</span
+            >
+          </div>
+        </div>
+
+        <div
+          class="flex flex-col md:flex-row gap-6 justify-center items-stretch mb-8 w-full px-4"
+        >
+          <div
+            class="group relative bg-black/60 hover:bg-black/80 backdrop-blur-sm border-2 border-white/30 hover:border-white p-4 rounded-xl transition-all duration-300 w-full md:w-auto min-w-[280px] flex justify-between items-center shadow-lg"
+          >
+            <div class="text-left flex-1 overflow-hidden">
+              <div class="flex items-center gap-2 mb-1">
+                <i class="fab fa-java text-orange-400 text-lg"></i>
+                <span
+                  class="text-xs text-gray-300 font-bold uppercase tracking-widest"
+                  >JAVA IP</span
+                >
+              </div>
+              <div
+                class="font-mc text-lg md:text-2xl text-white tracking-wide truncate"
+                id="ipJava"
+              >
+                play.indopride.top
+              </div>
+            </div>
+            <button
+              onclick="copyText('play.indopride.top')"
+              class="ml-4 bg-white/10 hover:bg-green-500 text-white h-10 w-10 flex items-center justify-center rounded-lg transition-colors flex-shrink-0"
+              title="Copy IP"
+            >
+              <i class="fas fa-copy"></i>
+            </button>
+          </div>
+
+          <div
+            class="group relative bg-black/60 hover:bg-black/80 backdrop-blur-sm border-2 border-white/30 hover:border-white p-4 rounded-xl transition-all duration-300 w-full md:w-auto min-w-[280px] flex items-center shadow-lg"
+          >
+            <div
+              class="text-left flex-1 border-r-2 border-white/20 pr-4 mr-4 overflow-hidden"
+            >
+              <div class="flex items-center gap-2 mb-1">
+                <i class="fas fa-mobile-alt text-blue-400 text-lg"></i>
+                <span
+                  class="text-xs text-gray-300 font-bold uppercase tracking-widest"
+                  >BEDROCK IP</span
+                >
+              </div>
+              <div
+                class="font-mc text-lg md:text-2xl text-white tracking-wide truncate"
+              >
+                play.indopride.top
+              </div>
+            </div>
+            <div
+              class="text-left flex flex-col justify-center h-full min-w-[50px]"
+            >
+              <div class="text-[10px] text-gray-400 font-bold uppercase mb-1">
+                PORT
+              </div>
+              <div
+                class="font-mc text-lg md:text-xl text-yellow-400 leading-none"
+              >
+                25600
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="promoSection"
+          class="w-full max-w-5xl mx-auto mt-4 mb-8 hidden flex-col items-center"
+        >
+          <h3
+            class="font-mc text-yellow-400 text-lg md:text-lg mb-4 tracking-widest px-6 py-2"
+          >
+            <i class="fas fa-sparkles mr-2 text-yellow-300"></i> PROMOSI BULAN
+            INI <i class="fas fa-sparkles ml-2 text-yellow-300"></i>
+          </h3>
+
+          <div
+            id="promoSlider"
+            class="flex w-full overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4 md:justify-center scroll-smooth pb-4 px-4 md:px-0"
+          ></div>
+        </div>
+        <button
+          onclick="autoJoinServer()"
+          class="btn-3d btn-blue text-lg cursor-pointer px-12 py-3 mt-2 shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:shadow-[0_0_30px_rgba(37,99,235,0.8)] transition-all"
+        >
+          GABUNG SEKARANG
+        </button>
+      </div>
+    </section>
+
+    <section class="py-12 bg-gray-900 text-white">
+      <div class="container mx-auto px-6 reveal">
+        <h2 class="font-mc text-3xl text-center mb-10 text-yellow-400">
+          STATISTIK SERVER
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 text-center">
+          <div class="p-4 bg-gray-800 rounded-lg">
+            <div
+              id="server-status"
+              class="text-green-400 text-3xl font-bold mb-2"
+            >
+              <i class="fas fa-spinner fa-spin text-xl"></i>
+            </div>
+            <div class="font-mc text-lg md:text-xl">ONLINE</div>
+            <div class="text-xs md:text-sm text-gray-400">Status</div>
+          </div>
+          <div class="p-4 bg-gray-800 rounded-lg">
+            <div
+              id="server-players"
+              class="text-blue-400 text-3xl font-bold mb-2"
+            >
+              <i class="fas fa-spinner fa-spin text-xl"></i>
+            </div>
+            <div class="font-mc text-lg md:text-xl">PLAYERS</div>
+            <div class="text-xs md:text-sm text-gray-400">Sedang Bermain</div>
+          </div>
+          <div class="p-4 bg-gray-800 rounded-lg">
+            <div class="text-purple-400 text-3xl font-bold mb-2">1.21.11</div>
+            <div class="font-mc text-lg md:text-xl">JAVA VER</div>
+            <div class="text-xs md:text-sm text-gray-400">Recommended</div>
+          </div>
+          <div class="p-4 bg-gray-800 rounded-lg">
+            <div class="text-orange-400 text-3xl font-bold mb-2">LATEST</div>
+            <div class="font-mc text-lg md:text-xl">BEDROCK</div>
+            <div class="text-xs md:text-sm text-gray-400">Auto Update</div>
+          </div>
+        </div>
+
+        <div class="mt-10 pt-8 border-t border-gray-700">
+          <h3
+            class="font-mc text-xl md:text-2xl text-center mb-6 text-gray-300"
+          >
+            <i class="fas fa-history text-green-400 mr-2"></i> PEMAIN TERAKHIR
+            LOGIN
+          </h3>
+          <div
+            id="latest-players-container"
+            class="flex flex-wrap justify-center gap-4"
+          >
+            <div class="text-gray-500 text-sm py-4">
+              <i class="fas fa-spinner fa-spin mr-2"></i> Memuat data
+              aktivitas...
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 md:py-20 bg-gray-50" id="tutorial">
+      <div class="container mx-auto px-6 reveal">
+        <h2
+          class="font-mc text-3xl md:text-4xl text-center text-gray-800 mb-12"
+        >
+          CARA BERGABUNG
+        </h2>
+
+        <div
+          class="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-10 max-w-6xl mx-auto"
+        >
+          <div class="w-full lg:w-1/2 flex justify-center">
+            <img
+              src="https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/Homepage_Discover-our-games_MC-Vanilla-KeyArt_864x864.jpg"
+              alt="Minecraft Join Tutorial"
+              class="rounded-2xl shadow-2xl border-4 border-white w-full max-w-[400px] lg:max-w-[500px] object-cover aspect-square transform rotate-2 hover:rotate-0 transition-all duration-500"
+            />
+          </div>
+
+          <div class="w-full lg:w-1/2 flex flex-col gap-6">
+            <div
+              class="bg-white p-6 rounded-xl shadow-md border-l-8 border-green-500 hover:shadow-lg transition-all"
+            >
+              <div
+                class="flex items-center gap-4 mb-4 pb-4 border-b border-gray-100"
+              >
+                <i class="fab fa-java text-3xl text-green-600"></i>
+                <div>
+                  <h3 class="font-mc text-xl text-gray-800">JAVA EDITION</h3>
+                  <p class="text-xs text-gray-500 font-bold">
+                    PC / MAC / LINUX
+                  </p>
+                </div>
+              </div>
+              <ol
+                class="list-decimal pl-5 space-y-2 text-sm text-gray-700 font-body"
+              >
+                <li>
+                  Buka Minecraft Java Version <strong>1.21.5 - 1.21.11</strong>.
+                </li>
+                <li>
+                  Pilih menu <strong>Multiplayer</strong> >
+                  <strong>Add Server</strong>.
+                </li>
+                <li>
+                  Masukkan IP:
+                  <code
+                    class="bg-gray-100 px-2 py-1 rounded text-green-600 font-bold select-all border border-gray-200 block md:inline mt-1 md:mt-0"
+                    >play.indopride.top</code
+                  >
+                </li>
+                <li>Klik <strong>Done</strong> dan masuk server!</li>
+              </ol>
+            </div>
+
+            <div
+              class="bg-white p-6 rounded-xl shadow-md border-l-8 border-blue-500 hover:shadow-lg transition-all"
+            >
+              <div
+                class="flex items-center gap-4 mb-4 pb-4 border-b border-gray-100"
+              >
+                <i class="fas fa-mobile-alt text-3xl text-blue-600"></i>
+                <div>
+                  <h3 class="font-mc text-xl text-gray-800">BEDROCK / PE</h3>
+                  <p class="text-xs text-gray-500 font-bold">
+                    ANDROID / IOS / WIN10
+                  </p>
+                </div>
+              </div>
+              <ol
+                class="list-decimal pl-5 space-y-2 text-sm text-gray-700 font-body"
+              >
+                <li>Buka Minecraft Bedrock Patch Terbaru.</li>
+                <li>
+                  Pilih <strong>Play</strong> > <strong>Servers</strong> >
+                  <strong>Add Server</strong>.
+                </li>
+                <li>
+                  IP:
+                  <code
+                    class="bg-gray-100 px-2 py-1 rounded text-blue-600 font-bold select-all border border-gray-200"
+                    >play.indopride.top</code
+                  >
+                </li>
+                <li>
+                  Port:
+                  <code
+                    class="bg-gray-100 px-2 py-1 rounded text-blue-600 font-bold select-all border border-gray-200"
+                    >25600</code
+                  >
+                </li>
+                <li>Simpan dan Play!</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 md:py-20 bg-white">
+      <div class="container mx-auto px-6 reveal">
+        <div class="text-center mb-12">
+          <h2 class="font-mc text-3xl md:text-4xl text-gray-800 mb-2">
+            GAME MODES
+          </h2>
+          <p class="text-gray-500 font-body">
+            Pilih gaya bermainmu di server kami.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="card-game card-yellow">
+            <img
+              src="img/gamemode/gamemode-survival-economy.png"
+              alt="Survival Economy"
+              class="card-img aspect-square"
+            />
+            <h3 class="font-mc text-xl mb-2 text-yellow-600">
+              SURVIVAL ECONOMY
+            </h3>
+            <p class="text-sm text-gray-600 font-body">
+              Bangun kekayaan, berdagang dengan sesama player, dan jadilah
+              Sultan.
+            </p>
+          </div>
+          <div class="card-game card-blue">
+            <img
+              src="img/gamemode/gamemode-RPG.png"
+              alt="RPG Quest"
+              class="card-img aspect-square"
+            />
+            <h3 class="font-mc text-xl mb-2 text-blue-600">RPG QUEST</h3>
+            <p class="text-sm text-gray-600 font-body">
+              Jalankan misi cerita yang mendalam dan tamatkan petualangan epik.
+            </p>
+          </div>
+          <div class="card-game card-red">
+            <img
+              src="img/gamemode/gamemode-Dungeon.png"
+              alt="Dungeon"
+              class="card-img aspect-square"
+            />
+            <h3 class="font-mc text-xl mb-2 text-red-600">DUNGEON</h3>
+            <p class="text-sm text-gray-600 font-body">
+              Jelajahi ruang bawah tanah berbahaya penuh mob ganas untuk item
+              langlangka.
+            </p>
+          </div>
+          <div class="card-game card-purple">
+            <img
+              src="img/gamemode/gamemode-PVP.png"
+              alt="PvP Arena"
+              class="card-img aspect-square"
+            />
+            <h3 class="font-mc text-xl mb-2 text-purple-600">PvP ARENA</h3>
+            <p class="text-sm text-gray-600 font-body">
+              Uji ketangkasan bertarungmu melawan pemain lain di arena
+              gladiator.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 md:py-20 bg-white">
+      <div class="container mx-auto px-6 text-center reveal">
+        <h2 class="font-mc text-3xl md:text-4xl text-gray-800 mb-4">
+          80+ CUSTOM ENCHANTS
+        </h2>
+        <p class="text-gray-600 mb-12 font-body px-4">
+          Tingkatkan kekuatan senjatamu dengan efek unik non-Vanilla.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="card-game card-red text-left">
+            <img
+              src="img/enchantbook/vampire.png"
+              alt="Vampire Enchant Book"
+              class="card-img aspect-[4/3]"
+            />
+            <h3 class="font-mc text-2xl text-red-600 mb-2">VAMPIRE</h3>
+            <p class="text-gray-600 font-body">
+              Memulihkan sebagian darah (HP) saat memukul musuh.
+            </p>
+          </div>
+          <div class="card-game card-yellow text-left">
+            <img
+              src="img/enchantbook/thunder-cutter.png"
+              alt="Thunder Cutter Enchant Book"
+              class="card-img aspect-[4/3]"
+            />
+            <h3 class="font-mc text-2xl text-yellow-600 mb-2">
+              THUNDER CUTTER
+            </h3>
+            <p class="text-gray-600 font-body">
+              Memanggil petir yang menyambar musuh saat diserang.
+            </p>
+          </div>
+          <div class="card-game card-purple text-left">
+            <img
+              src="img/enchantbook/double-strike.png"
+              alt="Double Strike Enchant Book"
+              class="card-img aspect-[4/3]"
+            />
+            <h3 class="font-mc text-2xl text-purple-600 mb-2">DOUBLE STRIKE</h3>
+            <p class="text-gray-600 font-body">
+              Peluang memberikan kerusakan ganda (x2 Damage) pada musuh.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-12">
+          <a
+            href="wiki.html"
+            class="btn-3d btn-orange px-10 py-4 tracking-wider shadow-xl w-full md:w-auto block md:inline-block text-center"
+            >LIHAT WIKI LENGKAP</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="py-16 md:py-24 bg-slate-900 text-white relative overflow-hidden"
+    >
+      <div
+        class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-blue-500/10 blur-[100px] pointer-events-none"
+      ></div>
+
+      <div class="container mx-auto px-6 relative z-10 text-center reveal">
+        <h2
+          class="font-mc text-3xl md:text-4xl text-yellow-400 mb-4 drop-shadow-md"
+        >
+          UPGRADE PERINGKATMU
+        </h2>
+        <p class="text-gray-300 mb-12 font-body max-w-2xl mx-auto">
+          Dapatkan kit eksklusif, akses area khusus, dan fitur terbang (Fly)
+          untuk rank tertinggi.
+        </p>
+
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 items-stretch"
+        >
+          <div
+            class="bg-slate-800 p-4 rounded-xl border border-slate-700 hover:border-gray-400 transition hover:-translate-y-2 flex flex-row md:flex-col items-center md:items-stretch"
+          >
+            <div
+              class="w-5/12 md:w-full flex flex-col items-center justify-center border-r border-slate-700 md:border-r-0 md:border-b md:pb-4 pr-2 md:pr-0"
+            >
+              <img
+                src="https://res.cloudinary.com/dtjbo9dba/image/upload/v1771146089/member_rrx6q6.png"
+                class="w-16 h-16 md:w-24 md:h-24 mb-2 md:mb-4 rounded-lg shadow-md aspect-square object-cover"
+              />
+              <h3 class="font-mc text-sm md:text-xl text-gray-400 mb-0 md:mb-1">
+                MEMBER
+              </h3>
+              <p class="font-mc text-xs md:text-lg text-white">GRATIS</p>
+            </div>
+
+            <ul
+              class="w-7/12 md:w-full text-[10px] md:text-xs text-left text-gray-400 space-y-2 font-body pl-4 md:pl-0 md:pt-4"
+            >
+              <li>
+                <i class="fas fa-check text-gray-500 mr-1"></i> Akses Server
+              </li>
+              <li>
+                <i class="fas fa-check text-gray-500 mr-1"></i> 2x Set Home
+              </li>
+              <li>
+                <i class="fas fa-check text-gray-500 mr-1"></i> Starter Kit
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="bg-slate-800 p-4 rounded-xl border-b-4 border-orange-500 hover:bg-slate-700 transition hover:-translate-y-2 flex flex-row md:flex-col items-center md:items-stretch"
+          >
+            <div
+              class="w-5/12 md:w-full flex flex-col items-center justify-center border-r border-slate-600 md:border-r-0 md:border-b md:border-slate-700 md:pb-4 pr-2 md:pr-0"
+            >
+              <img
+                src="img/rank/knight.png"
+                class="w-16 h-16 md:w-24 md:h-24 mb-2 md:mb-4 rounded-lg shadow-md aspect-square object-cover shadow-orange-500/20"
+              />
+              <h3
+                class="font-mc text-sm md:text-xl text-orange-500 mb-0 md:mb-1"
+              >
+                KNIGHT
+              </h3>
+              <p class="font-mc text-xs md:text-lg text-white">Rp 15.000</p>
+            </div>
+
+            <ul
+              class="w-7/12 md:w-full text-[10px] md:text-xs text-left text-gray-300 space-y-2 font-body pl-4 md:pl-0 md:pt-4"
+            >
+              <li>
+                <i class="fas fa-check text-orange-500 mr-1"></i>
+                <strong>Claim Land 5x</strong>
+              </li>
+              <li>
+                <i class="fas fa-check text-orange-500 mr-1"></i> Kit Knight
+              </li>
+              <li>
+                <i class="fas fa-check text-orange-500 mr-1"></i> Akses /feed
+              </li>
+              <li>
+                <i class="fas fa-check text-orange-500 mr-1"></i> Akses
+                /disposal
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="bg-slate-800 p-4 rounded-xl border-b-4 border-green-500 hover:bg-slate-700 transition hover:-translate-y-2 flex flex-row md:flex-col items-center md:items-stretch"
+          >
+            <div
+              class="w-5/12 md:w-full flex flex-col items-center justify-center border-r border-slate-600 md:border-r-0 md:border-b md:border-slate-700 md:pb-4 pr-2 md:pr-0"
+            >
+              <img
+                src="img/rank/lord.png"
+                class="w-16 h-16 md:w-24 md:h-24 mb-2 md:mb-4 rounded-lg shadow-md aspect-square object-cover shadow-green-500/20"
+              />
+              <h3
+                class="font-mc text-sm md:text-xl text-green-500 mb-0 md:mb-1"
+              >
+                LORD
+              </h3>
+              <p class="font-mc text-xs md:text-lg text-white">Rp 25.000</p>
+            </div>
+
+            <ul
+              class="w-7/12 md:w-full text-[10px] md:text-xs text-left text-gray-300 space-y-2 font-body pl-4 md:pl-0 md:pt-4"
+            >
+              <li>
+                <i class="fas fa-check text-green-500 mr-1"></i>
+                <strong>Claim Land 10x</strong>
+              </li>
+              <li><i class="fas fa-check text-green-500 mr-1"></i> Kit Lord</li>
+              <li>
+                <i class="fas fa-check text-green-500 mr-1"></i> Akses /near
+              </li>
+              <li>
+                <i class="fas fa-check text-green-500 mr-1"></i> Akses /back
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="bg-slate-800 p-4 rounded-xl border-b-4 border-blue-500 hover:bg-slate-700 transition hover:-translate-y-2 flex flex-row md:flex-col items-center md:items-stretch"
+          >
+            <div
+              class="w-5/12 md:w-full flex flex-col items-center justify-center border-r border-slate-600 md:border-r-0 md:border-b md:border-slate-700 md:pb-4 pr-2 md:pr-0"
+            >
+              <img
+                src="img/rank/paladin.png"
+                class="w-16 h-16 md:w-24 md:h-24 mb-2 md:mb-4 rounded-lg shadow-md aspect-square object-cover shadow-blue-500/20"
+              />
+              <h3 class="font-mc text-sm md:text-xl text-blue-500 mb-0 md:mb-1">
+                PALADIN
+              </h3>
+              <p class="font-mc text-xs md:text-lg text-white">Rp 35.000</p>
+            </div>
+
+            <ul
+              class="w-7/12 md:w-full text-[10px] md:text-xs text-left text-gray-300 space-y-2 font-body pl-4 md:pl-0 md:pt-4"
+            >
+              <li>
+                <i class="fas fa-check text-blue-500 mr-1"></i>
+                <strong>Claim Unlimited</strong>
+              </li>
+              <li>
+                <i class="fas fa-check text-blue-500 mr-1"></i> Kit Paladin
+              </li>
+              <li>
+                <i class="fas fa-check text-blue-500 mr-1"></i> Akses
+                /enderchest
+              </li>
+              <li>
+                <i class="fas fa-check text-blue-500 mr-1"></i> Akses /craft
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="relative bg-slate-800 p-4 rounded-xl border-2 border-red-500 transition hover:-translate-y-2 flex flex-row md:flex-col items-center md:items-stretch"
+          >
+            <div
+              class="absolute -top-3 left-1/2 -translate-x-1/2 bg-red-600 text-white text-[9px] md:text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest font-mc z-10"
+            >
+              POPULAR
+            </div>
+
+            <div
+              class="w-5/12 md:w-full flex flex-col items-center justify-center border-r border-red-500/30 md:border-r-0 md:border-b md:pb-4 pr-2 md:pr-0"
+            >
+              <img
+                src="img/rank/duke.png"
+                class="w-16 h-16 md:w-28 md:h-28 mb-2 md:mb-4 rounded-lg shadow-lg aspect-square object-cover border-2 border-red-500/50"
+              />
+              <h3 class="font-mc text-sm md:text-2xl text-red-500 mb-0 md:mb-1">
+                DUKE
+              </h3>
+              <p class="font-mc text-xs md:text-xl text-white">Rp 45.000</p>
+            </div>
+
+            <ul
+              class="w-7/12 md:w-full text-[10px] md:text-sm text-left text-gray-200 space-y-2 font-body pl-4 md:pl-0 md:pt-4"
+            >
+              <li
+                class="font-bold text-yellow-300 bg-red-500/20 p-1 rounded text-center mb-2 animate-pulse text-[9px] md:text-xs"
+              >
+                <i class="fas fa-dove mr-1"></i> FITUR FLY
+              </li>
+              <li>
+                <i class="fas fa-check text-red-400 mr-1"></i> Claim Unlimited
+              </li>
+              <li>
+                <i class="fas fa-check text-red-400 mr-1"></i> Kit Duke OP
+              </li>
+              <li>
+                <i class="fas fa-check text-red-400 mr-1"></i> Akses /heal
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="relative bg-slate-800 p-4 rounded-xl border-2 border-yellow-400 transition hover:-translate-y-2 flex flex-row md:flex-col items-center md:items-stretch"
+          >
+            <div
+              class="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-500 text-black text-[9px] md:text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest font-mc z-10"
+            >
+              SULTAN
+            </div>
+
+            <div
+              class="w-5/12 md:w-full flex flex-col items-center justify-center border-r border-yellow-500/30 md:border-r-0 md:border-b md:pb-4 pr-2 md:pr-0"
+            >
+              <img
+                src="img/rank/king.png"
+                class="w-16 h-16 md:w-28 md:h-28 mb-2 md:mb-4 rounded-lg shadow-lg aspect-square object-cover border-2 border-yellow-400/50"
+              />
+              <h3
+                class="font-mc text-sm md:text-2xl text-yellow-400 mb-0 md:mb-1"
+              >
+                KING
+              </h3>
+              <p class="font-mc text-xs md:text-xl text-white">Rp 60.000</p>
+            </div>
+
+            <ul
+              class="w-7/12 md:w-full text-[10px] md:text-sm text-left text-gray-200 space-y-2 font-body pl-4 md:pl-0 md:pt-4"
+            >
+              <li
+                class="font-bold text-yellow-300 bg-yellow-500/20 p-1 rounded text-center mb-2 animate-pulse text-[9px] md:text-xs"
+              >
+                <i class="fas fa-bolt mr-1"></i> FLY + GOD
+              </li>
+              <li>
+                <i class="fas fa-check text-yellow-400 mr-1"></i> All Features
+              </li>
+              <li>
+                <i class="fas fa-check text-yellow-400 mr-1"></i> Kit King (Max)
+              </li>
+              <li>
+                <i class="fas fa-check text-yellow-400 mr-1"></i> Priority Slot
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-16">
+          <a
+            href="store.html"
+            class="btn-3d btn-green text-lg md:text-xl px-12 py-4 shadow-2xl tracking-wider w-full md:w-auto block md:inline-block text-center"
+          >
+            BELI RANK DI WEBSTORE
+          </a>
+          <p class="mt-4 text-sm text-gray-500 font-body">
+            Pembayaran mendukung QRIS, E-Wallet, dan Bank Transfer.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 md:py-20 bg-white">
+      <div class="container mx-auto px-6 reveal">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          <div>
+            <h2 class="font-mc text-3xl md:text-3xl text-gray-800 mb-4">
+              OFFICIAL STORE
+            </h2>
+            <p class="text-gray-600 mb-8 font-body">
+              Dapatkan item pendukung progresmu melalui Webstore kami.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+              <div
+                class="group bg-blue-50 p-4 rounded-xl border-b-4 border-blue-500/30 hover:border-blue-500 transition-all duration-300 hover:-translate-y-1 shadow-sm text-left"
+              >
+                <img
+                  src="img/shop/crate.png"
+                  alt="Crate Keys"
+                  class="rounded-lg mb-4 w-full object-cover aspect-video shadow-sm"
+                />
+                <h3 class="font-mc text-xl mb-1 text-blue-600">CRATE KEYS</h3>
+                <p class="text-sm text-gray-600 font-body">
+                  Kunci untuk membuka peti Gacha berisi hadiah acak.
+                </p>
+              </div>
+              <div
+                class="group bg-blue-50 p-4 rounded-xl border-b-4 border-blue-500/30 hover:border-blue-500 transition-all duration-300 hover:-translate-y-1 shadow-sm text-left"
+              >
+                <img
+                  src="img/shop/rare-item.png"
+                  alt="Rare Items"
+                  class="rounded-lg mb-4 w-full object-cover aspect-video shadow-sm"
+                />
+                <h3 class="font-mc text-xl mb-1 text-blue-600">RARE ITEMS</h3>
+                <p class="text-sm text-gray-600 font-body">
+                  Senjata dan tools berskin khusus (Mythic Breaker, dll).
+                </p>
+              </div>
+            </div>
+            <a
+              href="store.html"
+              class="btn-3d btn-blue px-8 py-3 w-full sm:w-auto text-center block sm:inline-block"
+              >KUNJUNGI SHOP</a
+            >
+          </div>
+
+          <div
+            class="bg-gray-900 text-white p-6 md:p-8 rounded-xl border-l-8 border-green-500 shadow-xl relative overflow-hidden"
+          >
+            <div
+              class="absolute top-0 right-0 -mt-10 -mr-10 text-green-500/10 text-9xl"
+            >
+              <i class="fas fa-robot"></i>
+            </div>
+            <div class="relative z-10">
+              <h2
+                class="font-mc text-2xl md:text-3xl mb-4 text-green-400 drop-shadow-md"
+              >
+                AUTO SOLVER PREMIUM
+              </h2>
+              <div
+                class="text-gray-300 mb-8 text-sm font-body space-y-3 leading-relaxed bg-gray-800/50 p-4 rounded-lg border border-green-500/20"
+              >
+                <p>
+                  Menangkan <strong>Chat Games</strong> di server secara
+                  otomatis tanpa mengetik!
+                </p>
+                <p>
+                  <i class="fas fa-gift text-green-400 mr-1"></i> Setiap
+                  kemenangan memberimu <strong>Common Crate Key</strong>.
+                </p>
+                <p>
+                  <i class="fas fa-coins text-yellow-400 mr-1"></i> Gunakan key
+                  tersebut untuk berpeluang mendapatkan
+                  <strong>Koin</strong> yang bisa dibelanjakan fitur keren di
+                  <strong>Coin Shop</strong>.
+                </p>
+              </div>
+              <div class="grid grid-cols-3 gap-2 md:gap-3 mb-8">
+                <div
+                  class="border border-gray-600 bg-gray-800 p-2 md:p-3 rounded-lg text-center hover:border-green-500 transition"
+                >
+                  <div
+                    class="text-[10px] md:text-xs text-gray-400 uppercase font-bold mb-1"
+                  >
+                    Harian
+                  </div>
+                  <div class="font-mc text-lg md:text-2xl text-green-400">
+                    5K
+                  </div>
+                </div>
+                <div
+                  class="border-2 border-green-500 bg-green-500/20 p-2 md:p-3 rounded-lg text-center transform scale-105 shadow-lg shadow-green-500/20 relative"
+                >
+                  <span
+                    class="absolute -top-3 left-1/2 -translate-x-1/2 bg-green-500 text-black text-[8px] md:text-[9px] px-2 py-0.5 rounded font-bold uppercase font-mc"
+                    >BEST</span
+                  >
+                  <div
+                    class="text-[10px] md:text-xs text-green-300 uppercase font-bold mb-1"
+                  >
+                    Mingguan
+                  </div>
+                  <div class="font-mc text-lg md:text-2xl text-white">30K</div>
+                </div>
+                <div
+                  class="border border-gray-600 bg-gray-800 p-2 md:p-3 rounded-lg text-center hover:border-green-500 transition"
+                >
+                  <div
+                    class="text-[10px] md:text-xs text-gray-400 uppercase font-bold mb-1"
+                  >
+                    Bulanan
+                  </div>
+                  <div class="font-mc text-lg md:text-2xl text-green-400">
+                    100K
+                  </div>
+                </div>
+              </div>
+              <a
+                href="#"
+                onclick="
+                  comingSoonAlert();
+                  return false;
+                "
+                class="btn-3d btn-green w-full block text-center text-lg shadow-lg cursor-pointer"
+                >AKTIFKAN PREMIUM SEKARANG</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer
+      class="bg-slate-900 text-white py-12 border-t-4 border-orange-500 mt-auto relative z-20"
+    >
+      <div class="container mx-auto px-6">
+        <div
+          class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8"
+        >
+          <div class="text-center md:text-left">
+            <h3 class="font-mc text-2xl text-yellow-400 mb-2">
+              BUTUH BANTUAN?
+            </h3>
+            <p class="text-gray-400 text-sm font-body">
+              Hubungi tim admin atau bergabung dengan komunitas kami.
+            </p>
+          </div>
+          <div class="flex gap-4">
+            <a
+              href="https://wa.me/6288247123646"
+              target="_blank"
+              class="btn-3d btn-green text-sm px-6 py-3"
+            >
+              <i class="fab fa-whatsapp mr-2"></i> ADMIN
+            </a>
+            <a
+              href="https://chat.whatsapp.com/JdjesOMBYCKKwbUrIAKrfM"
+              target="_blank"
+              class="btn-3d btn-blue text-sm px-6 py-3"
+            >
+              <i class="fab fa-whatsapp mr-2"></i> GRUP WA
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="flex flex-wrap justify-center md:justify-start gap-x-8 gap-y-2 mb-8 text-[10px] md:text-xs font-mc uppercase tracking-widest text-gray-500"
+        >
+          <a href="index.html" class="hover:text-orange-500 transition">Home</a>
+          <a href="store.html" class="hover:text-orange-500 transition">Shop</a>
+          <a href="tnc.html" class="hover:text-orange-500 transition"
+            >Terms & Conditions</a
+          >
+          <a href="tnc.html" class="hover:text-orange-500 transition"
+            >Refund Policy</a
+          >
+          <a href="tnc.html" class="hover:text-orange-500 transition"
+            >Privacy Policy</a
+          >
+        </div>
+
+        <div class="border-t border-gray-700 my-8"></div>
+
+        <div
+          class="text-center text-gray-500 text-xs font-body leading-relaxed"
+        >
+          <p class="mb-2 text-gray-400 font-bold">
+            &copy; 2026 Indopride Premium. All Rights Reserved.
+          </p>
+          <p>
+            Not an official Minecraft service. Not approved by or associated
+            with Mojang or Microsoft.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // 1. SCRIPT SMOOTH HAMBURGER MENU (DIPERBAIKI)
+      const btn = document.getElementById("mobile-menu-btn");
+      const menu = document.getElementById("mobile-menu");
+
+      if (btn && menu) {
+        btn.addEventListener("click", () => {
+          // Hanya gunakan toggle("open") agar sesuai dengan animasi di style.css
+          menu.classList.toggle("open");
+        });
+      }
+
+      // 2. SCRIPT SCROLL REVEAL
+      window.addEventListener("scroll", reveal);
+
+      function reveal() {
+        var reveals = document.querySelectorAll(".reveal");
+
+        for (var i = 0; i < reveals.length; i++) {
+          var windowheight = window.innerHeight;
+          var revealtop = reveals[i].getBoundingClientRect().top;
+          var revealpoint = 150;
+
+          if (revealtop < windowheight - revealpoint) {
+            reveals[i].classList.add("active");
+          } else {
+            reveals[i].classList.remove("active");
+          }
+        }
+      }
+      reveal();
+
+      // 3. SCRIPT COPY IP
+      function copyText(text) {
+        navigator.clipboard.writeText(text).then(() => {
+          Swal.fire({
+            icon: "success",
+            title: "IP Disalin!",
+            text: text,
+            timer: 1500,
+            showConfirmButton: false,
+            background: "#fff",
+            iconColor: "#22c55e",
+          });
+        });
+      }
+
+      // 4. SCRIPT AUTO JOIN
+      function autoJoinServer() {
+        const serverName = "IndoPride Premium";
+        const serverIP = "play.indopride.top";
+        const serverPort = "25600";
+
+        const isMobile =
+          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            navigator.userAgent,
+          );
+
+        if (isMobile) {
+          const bedrockLink = `minecraft://?addExternalServer=${encodeURIComponent(serverName)}|${serverIP}:${serverPort}`;
+          window.location.href = bedrockLink;
+          Swal.fire({
+            icon: "success",
+            title: "Membuka Minecraft...",
+            text: "Tunggu sebentar, kami sedang mengarahkanmu ke dalam game!",
+            timer: 3000,
+            showConfirmButton: false,
+          });
+        } else {
+          const fullIP = `${serverIP}`;
+          navigator.clipboard.writeText(fullIP).then(() => {
+            Swal.fire({
+              icon: "success",
+              title: "IP Disalin!",
+              html: `IP <b>${fullIP}</b> berhasil dicopy.<br>Silakan paste di Minecraft Java kamu!`,
+              confirmButtonText: "SIAP",
+              confirmButtonColor: "#22c55e",
+            });
+          });
+        }
+      }
+
+      // 5. ALERT COMING SOON
+      function comingSoonAlert() {
+        Swal.fire({
+          icon: "error",
+          title: "BELUM TERSEDIA",
+          text: "Fitur Auto Solver Premium sedang dalam tahap pengembangan. Nantikan update selanjutnya ya!",
+          background: "#fff",
+          confirmButtonText: "OKE, DITUNGGU!",
+          confirmButtonColor: "#ef4444",
+        });
+      }
+
+      // ==========================================
+      // 6. SCRIPT PROMO SLIDER DINAMIS
+      // ==========================================
+      const PROMO_URL =
+        "https://myindopride-default-rtdb.asia-southeast1.firebasedatabase.app/promotions.json";
+      const USERS_DB_URL =
+        "https://myindopride-default-rtdb.asia-southeast1.firebasedatabase.app/users.json"; // URL Firebase
+
+      async function loadPromos() {
+        try {
+          const res = await fetch(PROMO_URL);
+          const data = await res.json();
+          if (!data) return;
+
+          const promos = Object.values(data).filter((p) => p.is_active);
+          if (promos.length === 0) return;
+
+          const section = document.getElementById("promoSection");
+          const slider = document.getElementById("promoSlider");
+
+          // Agar INFINITE: Kita duplikasi datanya 3 kali (1,2,3, 1,2,3, 1,2,3)
+          const infinitePromos = [...promos, ...promos, ...promos];
+          slider.innerHTML = "";
+
+          infinitePromos.forEach((promo, index) => {
+            const card = `
+                    <a href="store.html?promo=${promo.link_id}" 
+                      class="promo-card block relative w-[70vw] md:w-[300px] flex-shrink-0 snap-center rounded-2xl overflow-hidden shadow-2xl group opacity-50 scale-90"
+                      data-index="${index}">
+                        <img src="${promo.image_url}" class="w-full h-auto aspect-[865/960] object-cover">
+                    </a>
+                `;
+            slider.insertAdjacentHTML("beforeend", card);
+          });
+
+          section.classList.remove("hidden");
+          section.classList.add("flex");
+
+          // Scroll ke tengah (kumpulan data ke-2) agar bisa scroll ke kiri/kanan sejak awal
+          const midIndex = promos.length;
+          const cards = slider.querySelectorAll(".promo-card");
+          cards[midIndex].scrollIntoView({
+            inline: "center",
+            block: "nearest",
+          });
+
+          startAutoSlide(promos.length);
+
+          // Pasang pendeteksi scroll untuk update opacity
+          slider.addEventListener("scroll", updatePromoEffects);
+          updatePromoEffects(); // Jalankan sekali di awal
+        } catch (e) {
+          console.log("Error promo:", e);
+        }
+      }
+
+      function updatePromoEffects() {
+        const slider = document.getElementById("promoSlider");
+        const cards = slider.querySelectorAll(".promo-card");
+        const centerX = slider.scrollLeft + slider.clientWidth / 2;
+
+        const isDesktop = window.innerWidth >= 768;
+        const threshold = isDesktop ? 450 : 100;
+
+        cards.forEach((card) => {
+          const cardCenter = card.offsetLeft + card.clientWidth / 2;
+          const distance = Math.abs(centerX - cardCenter);
+
+          if (distance < threshold) {
+            card.style.opacity = "1";
+            card.style.transform = "scale(1)";
+            card.style.zIndex = "10";
+          } else {
+            card.style.opacity = "0.4";
+            card.style.transform = "scale(0.9)";
+            card.style.zIndex = "1";
+          }
+        });
+      }
+
+      function startAutoSlide(originalLength) {
+        const slider = document.getElementById("promoSlider");
+        let isInteracting = false;
+
+        setInterval(() => {
+          if (!isInteracting) {
+            const cardWidth =
+              slider.querySelector(".promo-card").clientWidth + 16;
+            slider.scrollBy({ left: cardWidth, behavior: "smooth" });
+
+            if (slider.scrollLeft > cardWidth * originalLength * 2) {
+              slider.scrollTo({
+                left: cardWidth * originalLength,
+                behavior: "instant",
+              });
+            }
+          }
+        }, 4000);
+
+        slider.addEventListener("touchstart", () => (isInteracting = true));
+        slider.addEventListener("touchend", () =>
+          setTimeout(() => (isInteracting = false), 3000),
+        );
+      }
+
+      // ==========================================
+      // 7. SCRIPT LIVE STATUS & LATEST LOGIN
+      // ==========================================
+      async function loadServerStatus() {
+        try {
+          // Menarik data status server (Cepat dan Ringan)
+          const res = await fetch(
+            "https://api.mcsrvstat.us/3/play.indopride.top:25600",
+          );
+          const data = await res.json();
+
+          const statusEl = document.getElementById("server-status");
+          const playersEl = document.getElementById("server-players");
+
+          if (data.online) {
+            statusEl.innerHTML = '<i class="fas fa-signal"></i>';
+            statusEl.className = "text-green-400 text-3xl font-bold mb-2";
+            playersEl.innerText = `${data.players.online} / ${data.players.max}`;
+          } else {
+            statusEl.innerHTML = '<i class="fas fa-times-circle"></i>';
+            statusEl.className = "text-red-500 text-3xl font-bold mb-2";
+            playersEl.innerText = "0 / 0";
+          }
+        } catch (e) {
+          console.error("Gagal memuat status server", e);
+        }
+      }
+
+      async function loadLatestPlayers() {
+        try {
+          // 1. Ganti URL ke API PHP baru Anda di Jagoan Hosting
+          const res = await fetch("https://data.indopride.top/api.php");
+          const players = await res.json();
+
+          if (!players || players.length === 0) return;
+
+          // 2. Data dari API sudah berbentuk Array, tidak perlu Object.keys().map() lagi
+          // Kita langsung urutkan berdasarkan 'last_online' terbaru (descending)
+          players.sort(
+            (a, b) => new Date(b.last_online) - new Date(a.last_online),
+          );
+
+          // 3. Ambil 3 Teratas saja
+          const top3 = players.slice(0, 3);
+          const container = document.getElementById("latest-players-container");
+          container.innerHTML = ""; // Bersihkan loading animasi
+
+          top3.forEach((p) => {
+            // Logika Foto Avatar (Menggunakan p.username dari database baru)
+            let avatarUrl = "https://minotar.net/helm/Steve/100.png";
+
+            // Jika username diawali titik (Bedrock), gunakan API Crafatar, jika tidak gunakan Minotar
+            if (p.username && p.username.startsWith(".")) {
+              const cleanName = p.username.substring(1);
+              avatarUrl = `https://minotar.net/helm/${cleanName}/100.png`;
+            } else if (p.username) {
+              avatarUrl = `https://minotar.net/helm/${p.username}/100.png`;
+            }
+
+            // Logika Konversi Waktu (Menggunakan p.last_online dari database baru)
+            let timeString = "Baru saja";
+            if (p.last_online) {
+              // Konversi format database (YYYY-MM-DD HH:MM:SS) ke format JS
+              let fixedStr = p.last_online.replace(" ", "T");
+              let dateObj = new Date(fixedStr);
+
+              if (!isNaN(dateObj.getTime())) {
+                // Format ke jam dan menit WIB
+                timeString =
+                  dateObj.toLocaleTimeString("id-ID", {
+                    timeZone: "Asia/Jakarta",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  }) + " WIB";
+              }
+            }
+
+            // Template Kartu Pemain (Nama kolom sekarang adalah p.username)
+            const card = `
+                <div class="bg-gray-800 border border-gray-700 rounded-lg p-3 flex items-center gap-4 w-full md:w-64 hover:border-green-500 transition-colors shadow-lg">
+                    <img src="${avatarUrl}" class="w-12 h-12 rounded border border-gray-600 bg-gray-900 shadow-sm" onerror="this.src='https://minotar.net/helm/Steve/100.png'">
+                    <div class="text-left overflow-hidden">
+                        <div class="font-bold text-gray-200 text-sm truncate" title="${p.username}">${p.username}</div>
+                        <div class="text-xs text-green-400 mt-1 font-mono"><i class="fas fa-clock mr-1"></i>${timeString}</div>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML("beforeend", card);
+          });
+        } catch (e) {
+          console.error("Gagal memuat player terbaru dari API", e);
+          document.getElementById("latest-players-container").innerHTML =
+            '<span class="text-red-400 text-sm">Gagal memuat data pemain.</span>';
+        }
+      }
+      // Init Load
+      loadPromos();
+      loadServerStatus();
+      loadLatestPlayers();
+    </script>
+  </body>
+</html>
